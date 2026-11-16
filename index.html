@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>¡Nos casamos!</title>
+  <meta name="description" content="Estás invitado/a a nuestra boda. Tocá para ver todos los detalles y confirmar tu asistencia.">
+  <meta property="og:title" content="¡Nos casamos! 💍">
+  <meta property="og:description" content="Estás invitado/a a nuestra boda. Tocá para ver los detalles y confirmar tu asistencia.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#f7f3ec">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ===== SOBRE DE BIENVENIDA ===== -->
+  <div id="sobre" class="sobre" role="button" tabindex="0" aria-label="Abrir invitación">
+    <div class="sobre-contenido">
+      <p class="sobre-para" id="sobre-para">Tenés una invitación especial</p>
+      <div class="sello" id="sello">S&amp;M</div>
+      <p class="sobre-nombres" id="sobre-nombres"></p>
+      <span class="boton boton-grande pulso">💌 Tocá aquí para abrir</span>
+    </div>
+  </div>
+
+  <!-- ===== BOTÓN DE MÚSICA ===== -->
+  <button id="btn-musica" class="btn-musica oculto" aria-label="Música">🎵</button>
+  <audio id="audio" loop preload="none"></audio>
+
+  <!-- ===== MENÚ INFERIOR FIJO ===== -->
+  <nav class="menu-inferior" aria-label="Menú">
+    <a href="#inicio"><span>🏠</span>Inicio</a>
+    <a href="#lugar"><span>📍</span>Dónde</a>
+    <a href="#confirmar" class="destacado"><span>✅</span>Confirmar</a>
+    <a href="#galeria"><span>📷</span>Fotos</a>
+    <a href="#regalos"><span>🎁</span>Regalos</a>
+  </nav>
+
+  <main>
+    <!-- PORTADA -->
+    <header id="inicio" class="portada">
+      <div class="portada-foto" id="portada-foto"></div>
+      <div class="portada-texto">
+        <p class="pre-titulo">¡Nos casamos!</p>
+        <h1 id="titulo-nombres"></h1>
+        <p class="fecha-grande" id="fecha-texto"></p>
+        <p class="saludo-invitado oculto" id="saludo-invitado"></p>
+      </div>
+    </header>
+
+    <!-- FRASE + CUENTA REGRESIVA -->
+    <section class="seccion">
+      <p class="frase" id="frase"></p>
+      <h2>Faltan</h2>
+      <div class="cuenta" id="cuenta">
+        <div><b id="c-dias">0</b><span>días</span></div>
+        <div><b id="c-horas">0</b><span>horas</span></div>
+        <div><b id="c-min">0</b><span>minutos</span></div>
+        <div><b id="c-seg">0</b><span>segundos</span></div>
+      </div>
+      <div class="botones-fila" id="botones-calendario"></div>
+    </section>
+
+    <!-- HISTORIA -->
+    <section class="seccion fondo-suave" id="historia">
+      <h2>Nuestra historia</h2>
+      <div class="linea-tiempo" id="lista-historia"></div>
+    </section>
+
+    <!-- LUGARES -->
+    <section class="seccion" id="lugar">
+      <h2>¿Cuándo y dónde?</h2>
+      <div class="tarjetas" id="lista-eventos"></div>
+    </section>
+
+    <!-- CRONOGRAMA -->
+    <section class="seccion fondo-suave" id="cronograma">
+      <h2>Cronograma</h2>
+      <ol class="cronograma" id="lista-cronograma"></ol>
+    </section>
+
+    <!-- VESTIMENTA -->
+    <section class="seccion" id="vestimenta">
+      <h2>Código de vestimenta</h2>
+      <p class="icono-grande">👗🤵</p>
+      <p class="destacado-texto" id="vestimenta-titulo"></p>
+      <p id="vestimenta-texto"></p>
+      <div class="paleta" id="vestimenta-colores"></div>
+    </section>
+
+    <!-- CONFIRMAR -->
+    <section class="seccion fondo-acento" id="confirmar">
+      <h2>Confirmá tu asistencia</h2>
+      <p id="texto-limite"></p>
+      <p class="lugares-info oculto" id="lugares-info"></p>
+
+      <div id="ya-confirmado" class="caja-ok oculto"></div>
+
+      <form id="form-rsvp" class="formulario" novalidate>
+        <label for="f-nombre">1. Tu nombre y apellido</label>
+        <input id="f-nombre" name="nombre" type="text" autocomplete="name" placeholder="Ej: Ana García" required>
+
+        <fieldset>
+          <legend>2. ¿Vas a venir?</legend>
+          <div class="opciones-grandes">
+            <label class="opcion"><input type="radio" name="asiste" value="Sí" required><span>🎉 ¡Sí, voy!</span></label>
+            <label class="opcion"><input type="radio" name="asiste" value="No"><span>😢 No puedo ir</span></label>
+          </div>
+        </fieldset>
+
+        <div id="bloque-asiste" class="oculto">
+          <label>3. ¿Cuántas personas van a venir? <small>(contándote a vos)</small></label>
+          <div class="contador">
+            <button type="button" id="menos" aria-label="Menos">−</button>
+            <output id="cantidad">1</output>
+            <button type="button" id="mas" aria-label="Más">+</button>
+          </div>
+          <p class="ayuda" id="ayuda-lugares"></p>
+
+          <label for="f-acompanantes">Nombres de quienes te acompañan <small>(opcional)</small></label>
+          <textarea id="f-acompanantes" name="acompanantes" rows="2" placeholder="Ej: Juan García, Lucía García"></textarea>
+
+          <fieldset id="bloque-comida">
+            <legend>¿Alguien tiene alguna necesidad de comida?</legend>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="comida" value="Vegetariano"><span>🥗 Vegetariano</span></label>
+              <label class="chip"><input type="checkbox" name="comida" value="Vegano"><span>🌱 Vegano</span></label>
+              <label class="chip"><input type="checkbox" name="comida" value="Celíaco (sin TACC)"><span>🌾 Sin TACC</span></label>
+              <label class="chip"><input type="checkbox" name="comida" value="Diabético"><span>🍬 Diabético</span></label>
+            </div>
+            <input type="text" name="comidaOtra" placeholder="Otra (alergias, etc.)">
+          </fieldset>
+
+          <div id="bloque-cancion">
+            <label for="f-cancion">🎶 ¿Qué canción no puede faltar en la fiesta?</label>
+            <input id="f-cancion" name="cancion" type="text" placeholder="Ej: Bailando - Enrique Iglesias">
+          </div>
+        </div>
+
+        <label for="f-mensaje">Un mensaje para los novios <small>(opcional)</small></label>
+        <textarea id="f-mensaje" name="mensaje" rows="3" placeholder="¡Escribí lo que quieras!"></textarea>
+
+        <p class="error oculto" id="error-form"></p>
+        <button type="submit" class="boton boton-grande boton-ancho" id="btn-enviar">✅ Enviar confirmación</button>
+      </form>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="seccion" id="galeria">
+      <h2>Galería</h2>
+      <p class="ayuda">Tocá una foto para verla grande</p>
+      <div class="grilla-fotos" id="grilla-fotos"></div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="seccion fondo-suave" id="videos">
+      <h2>Videos</h2>
+      <div id="lista-videos" class="lista-videos"></div>
+    </section>
+
+    <!-- REGALOS -->
+    <section class="seccion" id="regalos">
+      <h2>Regalos</h2>
+      <p class="icono-grande">🎁</p>
+      <p id="regalos-texto"></p>
+      <button class="boton" id="btn-ver-cuentas">Ver datos bancarios</button>
+      <div id="cuentas" class="oculto"></div>
+      <div id="regalos-lista"></div>
+    </section>
+
+    <!-- FOTOS DE INVITADOS -->
+    <section class="seccion fondo-acento" id="fotos-invitados">
+      <h2>Compartí tus fotos</h2>
+      <p class="icono-grande">📸</p>
+      <p id="fotos-invitados-texto"></p>
+      <p class="hashtag" id="hashtag"></p>
+      <a class="boton boton-grande" id="btn-subir-fotos" target="_blank" rel="noopener">📤 Subir mis fotos</a>
+    </section>
+
+    <!-- ALOJAMIENTO -->
+    <section class="seccion" id="alojamiento">
+      <h2>Alojamiento</h2>
+      <div class="tarjetas" id="lista-alojamiento"></div>
+    </section>
+
+    <!-- PREGUNTAS -->
+    <section class="seccion fondo-suave" id="preguntas">
+      <h2>Preguntas frecuentes</h2>
+      <div id="lista-preguntas" class="acordeon"></div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="seccion" id="contacto">
+      <h2>¿Tenés dudas?</h2>
+      <p>Escribinos por WhatsApp</p>
+      <div class="botones-fila" id="lista-contactos"></div>
+    </section>
+
+    <footer class="pie">
+      <p class="pie-nombres" id="pie-nombres"></p>
+      <p id="pie-fecha"></p>
+      <p>¡Te esperamos! 💛</p>
+    </footer>
+  </main>
+
+  <!-- VISOR DE FOTOS -->
+  <div id="visor" class="visor oculto" role="dialog" aria-label="Foto ampliada">
+    <button class="visor-cerrar" id="visor-cerrar" aria-label="Cerrar">✕ Cerrar</button>
+    <button class="visor-nav izq" id="visor-ant" aria-label="Anterior">‹</button>
+    <img id="visor-img" alt="">
+    <button class="visor-nav der" id="visor-sig" aria-label="Siguiente">›</button>
+  </div>
+
+  <!-- AVISO -->
+  <div id="aviso" class="aviso" role="status" aria-live="polite"></div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

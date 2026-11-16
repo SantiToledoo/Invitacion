@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d8c7a1"/><stop offset="1" stop-color="#7d8b55"/></linearGradient></defs>
+<rect width="1200" height="1600" fill="url(#g)"/>
+<text x="50%" y="38%" text-anchor="middle" font-family="Georgia,serif" font-size="133" fill="#ffffff" opacity=".85">♥</text>
+<text x="50%" y="45%" text-anchor="middle" font-family="Georgia,serif" font-size="66" fill="#ffffff" opacity=".9">Tu foto de portada</text>
+</svg>

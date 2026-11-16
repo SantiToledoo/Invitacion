@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Crear links de invitados</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { padding: 0; }
+    .panel { max-width: 640px; margin: 0 auto; padding: 32px 16px 60px; }
+    .resultado { background: var(--blanco); border-radius: var(--radio); padding: 20px; box-shadow: var(--sombra); margin-top: 24px; word-break: break-all; }
+    .fila { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    input[type=number] { width: 100%; font: inherit; font-size: 1.1rem; padding: 14px 16px; border: 2px solid #d8ccb8; border-radius: 14px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: .95rem; }
+    td { padding: 8px 4px; border-bottom: 1px solid #eee4d4; vertical-align: middle; }
+    td:last-child { text-align: right; white-space: nowrap; }
+    .mini { padding: 8px 12px; min-height: 0; font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h2 style="text-align:center">Crear links de invitados</h2>
+    <p>Esta página es <b>solo para los novios</b>. Creá un link personalizado para cada invitado o familia: la invitación los saluda por su nombre y les reserva una cantidad fija de lugares.</p>
+
+    <form id="f" class="formulario">
+      <label for="nombre">Nombre del invitado o familia</label>
+      <input id="nombre" type="text" placeholder="Ej: Familia García" required>
+      <label for="lugares">¿Cuántos lugares le reservás?</label>
+      <input id="lugares" type="number" min="1" max="30" value="2" required>
+      <label for="tel">WhatsApp del invitado <small>(opcional, para enviárselo directo)</small></label>
+      <input id="tel" type="text" inputmode="tel" placeholder="Ej: 5491123456789">
+      <button class="boton boton-grande boton-ancho" style="margin-top:22px">✨ Crear link</button>
+    </form>
+
+    <div id="res" class="resultado oculto"></div>
+
+    <div class="resultado" id="historial-caja">
+      <h3>Links creados en este dispositivo</h3>
+      <table id="historial"></table>
+    </div>
+  </div>
+  <div id="aviso" class="aviso"></div>
+
+  <script src="config.js"></script>
+  <script>
+    (function () {
+      var B = window.BODA || {};
+      var base = location.href.replace(/crear-links\.html.*$/, "");
+      var $ = function (id) { return document.getElementById(id); };
+      var esc = function (t) { return String(t).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+      var lista = []; try { lista = JSON.parse(localStorage.getItem("links") || "[]"); } catch (e) {}
+
+      function link(n, l) { return base + "?invitado=" + encodeURIComponent(n) + "&lugares=" + l; }
+      function mensaje(n, url) {
+        return "¡Hola " + n + "! 💌\n" + (B.novio1 || "") + " y " + (B.novio2 || "") +
+          " nos casamos y queremos que estés ahí. Tocá este link para ver la invitación y confirmar tu asistencia:\n\n" + url;
+      }
+      function copiar(t) {
+        var ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); } catch (e) {} ta.remove();
+        if (navigator.clipboard) navigator.clipboard.writeText(t).catch(function () {});
+        var a = $("aviso"); a.textContent = "✅ Copiado"; a.classList.add("visible");
+        setTimeout(function () { a.classList.remove("visible"); }, 2000);
+      }
+      function pintarHistorial() {
+        $("historial-caja").classList.toggle("oculto", !lista.length);
+        $("historial").innerHTML = lista.map(function (x, i) {
+          return "<tr><td><b>" + esc(x.n) + "</b> · " + x.l + " lugar(es)</td><td>" +
+            '<button class="boton mini secundario" data-c="' + i + '">📋</button> ' +
+            '<button class="boton mini secundario" data-b="' + i + '">🗑️</button></td></tr>';
+        }).join("");
+      }
+      $("historial").onclick = function (e) {
+        var b = e.target.closest("button"); if (!b) return;
+        if (b.dataset.c) { var x = lista[b.dataset.c]; copiar(mensaje(x.n, link(x.n, x.l))); }
+        if (b.dataset.b && confirm("¿Borrar de la lista?")) { lista.splice(b.dataset.b, 1); guardar(); }
+      };
+      function guardar() { try { localStorage.setItem("links", JSON.stringify(lista)); } catch (e) {} pintarHistorial(); }
+
+      $("f").onsubmit = function (e) {
+        e.preventDefault();
+        var n = $("nombre").value.trim(), l = Math.max(1, Math.min(30, parseInt($("lugares").value, 10) || 1));
+        if (!n) return;
+        var url = link(n, l), msg = mensaje(n, url), tel = $("tel").value.replace(/\D/g, "");
+        var wa = "https://wa.me/" + tel + "?text=" + encodeURIComponent(msg);
+        $("res").innerHTML = "<p><b>Link para " + esc(n) + ":</b></p><p>" + esc(url) + "</p>" +
+          '<div class="fila"><a class="boton" target="_blank" rel="noopener" href="' + esc(wa) + '">💬 Enviar por WhatsApp</a>' +
+          '<button class="boton secundario" id="cp">📋 Copiar mensaje</button>' +
+          '<a class="boton secundario" target="_blank" href="' + esc(url) + '">👀 Ver</a></div>';
+        $("res").classList.remove("oculto");
+        $("cp").onclick = function () { copiar(msg); };
+        lista.unshift({ n: n, l: l }); guardar();
+        $("nombre").value = ""; $("tel").value = "";
+      };
+      pintarHistorial();
+    })();
+  </script>
+</body>
+</html>
