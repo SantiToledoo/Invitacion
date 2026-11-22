@@ -12,7 +12,11 @@
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
   }
-  function ocultarSeccion(id) { var el = $(id); if (el) el.classList.add("oculto"); }
+  function ocultarSeccion(id) {
+    var el = $(id); if (el) el.classList.add("oculto");
+    var link = document.querySelector('.menu-inferior a[href="#' + id + '"]');
+    if (link) link.classList.add("oculto");
+  }
   function aviso(msg) {
     var a = $("aviso");
     a.textContent = msg;
@@ -380,7 +384,7 @@
     var c = document.createElement("canvas");
     c.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:400";
     c.width = innerWidth; c.height = innerHeight; document.body.appendChild(c);
-    var ctx = c.getContext("2d"), cols = ["#8a9a5b", "#b8923a", "#c7543f", "#f2d8a7", "#ffffff"], ps = [];
+    var ctx = c.getContext("2d"), cols = ["#7b1e2e", "#e8a6b4", "#9a9597", "#ffffff", "#1c1a1b"], ps = [];
     for (var i = 0; i < 140; i++) ps.push({ x: Math.random() * c.width, y: -20 - Math.random() * c.height * .5, r: 4 + Math.random() * 6, vy: 2 + Math.random() * 3, vx: -1 + Math.random() * 2, a: Math.random() * 6, col: cols[i % cols.length] });
     var t0 = Date.now();
     (function loop() {

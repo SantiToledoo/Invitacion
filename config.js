@@ -9,26 +9,24 @@
 window.BODA = {
 
   /* ---------- 1. LOS NOVIOS ---------- */
-  novio1: "Sofía",
-  novio2: "Martín",
-  iniciales: "S & M",
+  novio1: "Santi",
+  novio2: "Sol",
+  iniciales: "S & S",
 
   // Fecha y hora de la ceremonia. Formato: AAAA-MM-DDTHH:MM:00-03:00 (-03:00 = hora Argentina)
-  fecha: "2027-03-20T18:00:00-03:00",
-  fechaTexto: "Sábado 20 de marzo de 2027",
+  fecha: "2027-02-05T18:00:00-03:00",
+  fechaTexto: "Viernes 5 de febrero de 2027",
 
   frase: "Hay momentos en la vida que son especiales por sí solos, pero compartirlos con las personas que queremos los hace inolvidables.",
-  hashtag: "#SofiYMartin2027",
+  hashtag: "#SantiYSol2027",
 
   /* ---------- 2. FOTO DE PORTADA Y MÚSICA ---------- */
-  fotoPortada: "fotos/portada.svg",           // Ej: "fotos/portada.jpg"
+  fotoPortada: "",                            // Ej: "fotos/portada.jpg"  (vacío = fondo bordó)
   musica: "",                                 // Ej: "musica/cancion.mp3"  (vacío = sin música)
 
   /* ---------- 3. NUESTRA HISTORIA (opcional) ---------- */
   historia: [
-    { fecha: "2019", titulo: "Nos conocimos", texto: "Un cumpleaños de amigos en común y una charla que no terminó nunca.", foto: "fotos/historia1.svg" },
-    { fecha: "2022", titulo: "Nos mudamos juntos", texto: "Primera casa, primeras plantas y la llegada de Lola, nuestra perrita.", foto: "fotos/historia2.svg" },
-    { fecha: "2025", titulo: "¡Dijimos que sí!", texto: "Frente al mar, con anillo escondido en la mochila.", foto: "fotos/historia3.svg" }
+    // { fecha: "2020", titulo: "Nos conocimos", texto: "...", foto: "fotos/historia1.jpg" }
   ],
 
   /* ---------- 4. CEREMONIA Y FIESTA ---------- */
@@ -63,18 +61,13 @@ window.BODA = {
   vestimenta: {
     titulo: "Elegante",
     texto: "Les pedimos evitar el color blanco, reservado para la novia. ¡Traigan zapatos cómodos para bailar!",
-    colores: ["#8a9a5b", "#c9a227", "#6d4c41", "#2f4858"]   // paleta sugerida (opcional, dejá [] si no querés)
+    colores: ["#7b1e2e", "#e8a6b4", "#9a9597", "#1c1a1b"]   // paleta sugerida (opcional, dejá [] si no querés)
   },
 
   /* ---------- 7. GALERÍA DE FOTOS ---------- */
   // Subí tus fotos a la carpeta /fotos y escribí acá sus nombres.
   galeria: [
-    "fotos/galeria1.svg",
-    "fotos/galeria2.svg",
-    "fotos/galeria3.svg",
-    "fotos/galeria4.svg",
-    "fotos/galeria5.svg",
-    "fotos/galeria6.svg"
+    // "fotos/foto1.jpg", "fotos/foto2.jpg"
   ],
 
   /* ---------- 8. VIDEOS ---------- */
@@ -87,7 +80,7 @@ window.BODA = {
 
   /* ---------- 9. CONFIRMACIÓN DE ASISTENCIA (RSVP) ---------- */
   confirmacion: {
-    fechaLimite: "20 de febrero de 2027",
+    fechaLimite: "5 de enero de 2027",
     // Pegá acá la dirección de tu Google Apps Script (ver README, paso "Planilla de confirmaciones").
     // Si lo dejás vacío, las confirmaciones se envían por WhatsApp.
     urlPlanilla: "",
@@ -103,7 +96,7 @@ window.BODA = {
   regalos: {
     texto: "Su presencia es nuestro mejor regalo. Si además desean hacernos un obsequio, pueden colaborar con nuestra luna de miel ✈️",
     cuentas: [
-      { titular: "Sofía Pérez", banco: "Banco Nación", alias: "SOFI.MARTIN.BODA", cbu: "0110000000000000000000" }
+      { titular: "Santi", banco: "Banco Nación", alias: "SANTI.SOL.BODA", cbu: "0110000000000000000000" }
     ],
     listaUrl: ""   // Link a una lista de regalos (opcional)
   },
@@ -125,13 +118,13 @@ window.BODA = {
   preguntas: [
     { p: "¿Puedo llevar a mis hijos?", r: "Amamos a sus peques, pero la fiesta será solo para adultos. ¡Gracias por entender!" },
     { p: "¿Hay estacionamiento?", r: "Sí, el salón cuenta con estacionamiento gratuito." },
-    { p: "¿Hasta cuándo puedo confirmar?", r: "Hasta el 20 de febrero de 2027. Necesitamos saberlo para organizar las mesas." },
+    { p: "¿Hasta cuándo puedo confirmar?", r: "Hasta el 5 de enero de 2027. Necesitamos saberlo para organizar las mesas." },
     { p: "Tengo una dieta especial, ¿qué hago?", r: "Avisanos en el formulario de confirmación y nos ocupamos." }
   ],
 
   /* ---------- 14. CONTACTO ---------- */
   contactos: [
-    { nombre: "Sofía", whatsapp: "5491100000000" },
-    { nombre: "Martín", whatsapp: "5491100000000" }
+    { nombre: "Santi", whatsapp: "5491100000000" },
+    { nombre: "Sol", whatsapp: "5491100000000" }
   ]
 };
