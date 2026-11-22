@@ -2,7 +2,7 @@ name: Publicar invitación en GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, ccr-9ddff3c4-1yd17x]
   workflow_dispatch:
 
 permissions:
