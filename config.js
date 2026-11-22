@@ -30,21 +30,24 @@ window.BODA = {
   ],
 
   /* ---------- 4. CEREMONIA Y FIESTA ---------- */
-  // "direccion" se usa para el mapa y el botón "Cómo llegar". Escribila como la buscarías en Google Maps.
+  // "link": pegá el link de Google Maps del lugar (botón "Cómo llegar").
+  // "direccion": opcional; si la escribís, además se muestra un mapa dentro de la invitación.
   eventos: [
     {
-      titulo: "Ceremonia",
-      icono: "💍",
+      titulo: "Iglesia",
+      icono: "⛪",
       hora: "18:00 hs",
-      lugar: "Parroquia Nuestra Señora del Pilar",
-      direccion: "Junín 1904, Recoleta, Buenos Aires"
+      lugar: "Iglesia",
+      direccion: "",
+      link: "https://maps.app.goo.gl/7ZsyYT7jxk8BPDeh8"
     },
     {
-      titulo: "Fiesta",
+      titulo: "Ceremonia y Fiesta",
       icono: "🥂",
-      hora: "20:30 hs",
-      lugar: "Salón Los Jazmines",
-      direccion: "Av. del Libertador 4100, Buenos Aires"
+      hora: "20:00 hs",
+      lugar: "Salón",
+      direccion: "",
+      link: "https://maps.app.goo.gl/GEREzUrZo64BXzef8"
     }
   ],
 
@@ -60,8 +63,9 @@ window.BODA = {
   /* ---------- 6. CÓDIGO DE VESTIMENTA ---------- */
   vestimenta: {
     titulo: "Elegante",
-    texto: "Les pedimos evitar el color blanco, reservado para la novia. ¡Traigan zapatos cómodos para bailar!",
-    colores: ["#7b1e2e", "#e8a6b4", "#9a9597", "#1c1a1b"]   // paleta sugerida (opcional, dejá [] si no querés)
+    texto: "Les pedimos no vestir de blanco, rosa, gris ni bordó: son los colores de nuestra boda 💕",
+    tituloColores: "Colores que NO se pueden usar",
+    coloresNo: ["#ffffff", "#e8a6b4", "#9a9597", "#7b1e2e"]   // se muestran tachados (dejá [] si no querés)
   },
 
   /* ---------- 7. GALERÍA DE FOTOS ---------- */
@@ -88,7 +92,7 @@ window.BODA = {
     whatsapp: "5491100000000",
     // Máximo de lugares si el link NO trae una cantidad personalizada
     lugaresPorDefecto: 2,
-    preguntarComida: true,
+    preguntarComida: false,   // cada invitado ya tiene su dieta registrada,
     preguntarCancion: true
   },
 
@@ -116,10 +120,9 @@ window.BODA = {
 
   /* ---------- 13. PREGUNTAS FRECUENTES ---------- */
   preguntas: [
-    { p: "¿Puedo llevar a mis hijos?", r: "Amamos a sus peques, pero la fiesta será solo para adultos. ¡Gracias por entender!" },
     { p: "¿Hay estacionamiento?", r: "Sí, el salón cuenta con estacionamiento gratuito." },
     { p: "¿Hasta cuándo puedo confirmar?", r: "Hasta el 5 de enero de 2027. Necesitamos saberlo para organizar las mesas." },
-    { p: "Tengo una dieta especial, ¿qué hago?", r: "Avisanos en el formulario de confirmación y nos ocupamos." }
+    { p: "Tengo una dieta especial, ¿qué hago?", r: "No te preocupes: ya tenemos identificada la dieta de cada invitado y la vamos a tener en cuenta." }
   ],
 
   /* ---------- 14. CONTACTO ---------- */

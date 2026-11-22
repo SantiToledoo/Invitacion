@@ -130,13 +130,15 @@
   /* ---------- Eventos / lugares ---------- */
   if (B.eventos && B.eventos.length) {
     $("lista-eventos").innerHTML = B.eventos.map(function (ev) {
-      var q = encodeURIComponent(ev.lugar + ", " + ev.direccion);
+      var q = encodeURIComponent([ev.lugar, ev.direccion].filter(Boolean).join(", "));
+      var ir = ev.link || ("https://www.google.com/maps/dir/?api=1&destination=" + q);
       return '<article class="tarjeta aparecer"><div class="tarjeta-cuerpo">' +
         '<p class="icono-grande">' + esc(ev.icono || "📍") + '</p><h3>' + esc(ev.titulo) + '</h3>' +
-        '<p class="hora">' + esc(ev.hora) + '</p><p><b>' + esc(ev.lugar) + '</b></p>' +
-        '<p class="direccion">' + esc(ev.direccion) + '</p>' +
-        '<a class="boton boton-ancho" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=' + q + '">🚗 Cómo llegar</a>' +
-        '</div><iframe loading="lazy" title="Mapa ' + esc(ev.titulo) + '" src="https://www.google.com/maps?q=' + q + '&output=embed"></iframe></article>';
+        '<p class="hora">' + esc(ev.hora) + '</p>' +
+        (ev.lugar && ev.lugar !== ev.titulo ? '<p><b>' + esc(ev.lugar) + '</b></p>' : "") +
+        (ev.direccion ? '<p class="direccion">' + esc(ev.direccion) + '</p>' : "") +
+        '<a class="boton boton-ancho" target="_blank" rel="noopener" href="' + esc(ir) + '">📍 Ver ubicación / Cómo llegar</a>' +
+        '</div>' + (ev.direccion ? '<iframe loading="lazy" title="Mapa ' + esc(ev.titulo) + '" src="https://www.google.com/maps?q=' + q + '&output=embed"></iframe>' : "") + '</article>';
     }).join("");
   } else ocultarSeccion("lugar");
 
@@ -151,9 +153,11 @@
   if (B.vestimenta && B.vestimenta.titulo) {
     $("vestimenta-titulo").textContent = B.vestimenta.titulo;
     $("vestimenta-texto").textContent = B.vestimenta.texto || "";
-    $("vestimenta-colores").innerHTML = (B.vestimenta.colores || []).map(function (c) {
-      return '<span style="background:' + esc(c) + '"></span>';
-    }).join("");
+    var no = B.vestimenta.coloresNo || [];
+    $("vestimenta-colores").innerHTML = no.length
+      ? '<p class="paleta-titulo">🚫 ' + esc(B.vestimenta.tituloColores || "Colores que no se pueden usar") + '</p>' +
+        no.map(function (c) { return '<span class="color-no" style="background:' + esc(c) + '"></span>'; }).join("")
+      : "";
   } else ocultarSeccion("vestimenta");
 
   /* ---------- Galería + visor ---------- */
